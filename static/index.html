@@ -2,9 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Hello World</title>
+
+    <script>
+        const guess = async () => {
+            const num = document.getElementById("input").value;
+            const response = await fetch('/api/' + num);
+            const result = await response.json(); // result contains more useful metadata
+
+            alert(result['msg']);
+        };
+    </script>
+
+    <title>Hello Yellowstone</title>
 </head>
 <body>
-<h1>Hello World!!</h1>
+<h1>Hello YellowStone</h1>
+
+<img alt="yellowstone image" src="/static/img.jpeg" style="width: 200px;" />
+
+<h1>Guess a Number</h1>
+<h2>Enter a number between 1 - 10</h2>
+
+<input id="input">
+<button id="button" onclick="guess()">Submit</button>
+
 </body>
 </html>
