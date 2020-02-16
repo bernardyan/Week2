@@ -4,29 +4,95 @@
     <meta charset="UTF-8">
 
     <script>
-        const guess = async () => {
-            const num = document.getElementById("input").value;
-            const response = await fetch('/api/' + num);
+
+
+        const count = async () => {
+
+            const response = await fetch('/api/count');
             const result = await response.json(); // result contains more useful metadata
 
-            alert(result['msg']);
+            alert(`Our awesome website is currently tracking ` + result['count'] + ` movies`);
         };
+
+
+        const deleteMov = async () => {
+            const id = document.getElementById("delete_input").value;
+            const response = await fetch('/api/delete/' + id);
+            const result = await response.json(); // result contains more useful metadata
+
+            alert(result);
+        };
+
+
+        const insertPlatform = async() => {
+
+            const movie_id = document.getElementById("movie_id_new").value;
+            const platform_id = document.getElementById("platform_id").value;
+
+            const relation = {"movie_id": movie_id, "platform_id": platform_id};
+            console.log("insert pltform" + JSON.stringify(relation));
+
+            const response = await fetch('/api/addRelation', {
+                headers: { 'Content-Type': 'application/json' },
+                method: 'POST',
+                body: JSON.stringify(relation)
+            });
+        };
+
+        const updateDesc = async() => {
+
+            const movie_id = document.getElementById("movie_id").value;
+            const desc = document.getElementById("movie_desc").value;
+
+            const content = {"movie_id": movie_id, "desc": desc};
+            console.log("update description" + JSON.stringify(content));
+
+            const response = await fetch('/api/updateDesc', {
+                headers: { 'Content-Type': 'application/json' },
+                method: 'POST',
+                body: JSON.stringify(content)
+            });
+        };
+
+
+
+
     </script>
 
     <link rel="stylesheet" type="text/css" href="/static/index.css">
 
-    <title>Hello Yellowstone</title>
+    <title>Where's my movie</title>
 </head>
-<body>
-<h1>Hello YellowStone</h1>
 
-<img alt="yellowstone image" src="/static/img.jpeg" style="width: 200px;" />
+<h1>Admin Features</h1>
 
-<h1>Guess a Number</h1>
-<h2>Enter a number between 1 - 10</h2>
+<h2>Create New Movie -> Platform Record</h2>
 
-<input id="input">
-<button id="button" onclick="guess()">Submit</button>
+<form id="relation_form">
+    <label for="movie_id">Movie ID:</label>
+    <input type="text" id="movie_id_new" name="movie_id"><br><br>
+    <label for="movie_desc">Platform ID:</label>
+    <input type="text" id="platform_id" name="platform_id"><br><br>
+</form>
+<button onclick="insertPlatform()">Add relation</button>
+
+
+<h2>Update Movie Description</h2>
+<form onclick="updateDescription()">
+    <label for="movie_id">Movie ID:</label>
+    <input type="text" id="movie_id" name="movie_id"><br><br>
+    <label for="movie_desc">Description:</label>
+    <input type="text" id="movie_desc" name="movie_desc"><br><br>
+</form>
+<button onclick="updateDesc()">Update Description</button>
+
+
+<h2>Delete Movie by ID</h2>
+<input id="delete_input">
+<button id="delete_button" onclick="deleteMov()">Delete</button>
+
+<br>
+<button onclick="count()">How many movie are we tracking?</button>
 
 </body>
 </html>
