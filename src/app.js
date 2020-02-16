@@ -1,16 +1,10 @@
 import express from 'express';
-// import { guessRandom } from './guess.js';
-
 import { getMovieCount, deleteMovie, addRelation, updateDesc }
     from './services/movies';
 
 const app = express();
 
-
-
 const deleteMov = (request, response) => {
-
-    // console.log(`guess num, app.js`);
     const { id } = request.params || {};
     const result = deleteMovie(id);
     response.json(result);
@@ -46,8 +40,6 @@ const update = async (request, response) => {
     response.json({ success: true });
 };
 app.post('/api/updateDesc', update);
-
-
 
 
 const staticRoute = express.static('static');

@@ -7,10 +7,8 @@
 
 
         const count = async () => {
-
             const response = await fetch('/api/count');
             const result = await response.json(); // result contains more useful metadata
-
             alert(`Our awesome website is currently tracking ` + result['count'] + ` movies`);
         };
 
@@ -19,7 +17,6 @@
             const id = document.getElementById("delete_input").value;
             const response = await fetch('/api/delete/' + id);
             const result = await response.json(); // result contains more useful metadata
-
             alert(result);
         };
 
@@ -53,9 +50,6 @@
                 body: JSON.stringify(content)
             });
         };
-
-
-
 
     </script>
 

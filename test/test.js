@@ -1,7 +1,6 @@
 import {guessRandom} from '../src/guess.js'
 import { expect } from 'chai';
 
-
 describe('guessRandom', () => {
     it('random function does not return same val three times' , () => {
         const resultOne = guessRandom(1);
