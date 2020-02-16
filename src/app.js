@@ -1,5 +1,5 @@
 import express from 'express';
-import { getMovieCount, deleteMovie, addRelation, updateDesc }
+import { getMovieCount, deleteMovie, addRelation, updateDesc, checkAvailable }
     from './services/movies';
 
 const app = express();
@@ -12,7 +12,6 @@ const deleteMov = (request, response) => {
 app.get('/api/delete/:id', deleteMov);
 
 const movieCount = async (request, response) => {
-    console.log(`app.js`);
 
     const count = await getMovieCount();
     response.json({"count":count});
@@ -25,14 +24,15 @@ const addPlatform = async (request, response) => {
 
     const relation = request.body;
     relation.created_on = new Date();
-    await addRelation(relation);
-    response.json({ success: true });
+    const record = await addRelation(relation);
+    console.log(record);
+    response.json(record);
 };
 app.post('/api/addRelation', addPlatform);
 
 app.use(express.json());
 const update = async (request, response) => {
-    console.log(request.body);
+    console.log("At app.js" + request.body);
 
     const content = request.body;
     content.created_on = new Date();
@@ -40,6 +40,17 @@ const update = async (request, response) => {
     response.json({ success: true });
 };
 app.post('/api/updateDesc', update);
+
+app.use(express.json());
+const movieAvailable = async (request, response) => {
+    console.log(request.body);
+
+    const content = request.body;
+    const result = await checkAvailable(content);
+    console.log(result);
+    response.json(result);
+};
+app.post('/api/movieAvailable', movieAvailable);
 
 
 const staticRoute = express.static('static');
