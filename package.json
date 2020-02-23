@@ -4,8 +4,11 @@
   "description": "wk2 assignment",
   "main": "index.js",
   "scripts": {
+    "migrate": "npx knex migrate:up",
+    "migrate-down": "npx knex migrate:down",
     "start": "node -r esm src/index.js",
-    "test": "mocha -r esm test/test.js"
+    "test": "npx mocha -r esm test/test.js",
+    "db-test": "npx mocha -r esm test/db-test.js"
   },
   "author": "Bonan Yan",
   "license": "ISC",

@@ -2,6 +2,15 @@ import knex from '../database'
 
 export const getMovieCount = async () => (await knex('movies').count())[0].count;
 
+export const getMovieById = async id => {
+
+    const result = await knex('movies')
+        .where({ id })
+        .select('title');
+    return (result[0] || {})["title"];
+
+};
+
 export const deleteMovie = async id => {
     await knex('movies').delete().where({ id });
 
@@ -44,6 +53,7 @@ export const checkAvailable = async (content) => {
     return  { "success": true, "id": id };
 
 };
+
 
 export const updateDesc = async (content) => {
     const desc = content['desc'];
