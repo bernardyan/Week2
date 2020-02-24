@@ -6,8 +6,8 @@ const app = express();
 
 const deleteMov = (request, response) => {
     const { id } = request.params || {};
-    const result = deleteMovie(id);
-    response.json(result);
+    deleteMovie(id);
+    response.json({ success: true }); // Updated per jeremy's comment
 };
 app.get('/api/delete/:id', deleteMov);
 
@@ -43,12 +43,12 @@ app.post('/api/updateDesc', update);
 
 app.use(express.json());
 const movieAvailable = async (request, response) => {
-    console.log(request.body);
+    console.log("movieAvailable, body: " + request.body);
 
     const content = request.body;
-    const result = await checkAvailable(content);
-    console.log(result);
-    response.json(result);
+    const result = await checkAvailable(content['title']);
+    // console.log(result);
+    response.json(result); // Result array of object as format [{'title': 'platform'}, {'title': 'platform'}]
 };
 app.post('/api/movieAvailable', movieAvailable);
 

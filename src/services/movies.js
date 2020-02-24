@@ -12,13 +12,10 @@ export const getMovieById = async id => {
 };
 
 export const deleteMovie = async id => {
-    await knex('movies').delete().where({ id });
-
+    await knex('movies').del().where({ id });
     await knex('movies_platforms')
-        .delete()
+        .del()
         .where({ movie_id: id });
-    return  { "success": true };
-
 };
 
 // Add movie -> platform
@@ -40,17 +37,17 @@ export const addRelation = async (relation) => {
 };
 
 
-export const checkAvailable = async (content) => {
+export const checkAvailable = async (title) => {
+    console.log("CheckAvailable, received content: " + title);
 
-    console.log(content);
-    const title = content['title'];
+    const result = await knex('movies')
+        .select('title', 'service')
+        .join('movies_platforms', 'movies.id', 'movies_platforms.movie_id')
+        .join('platform', 'movies_platforms.platform_id', 'platform.id')
+        .where('title', title);
 
-    const [id] = await knex('movies')
-        .select("id")
-        .where("title", title);
-
-    console.log(id);
-    return  { "success": true, "id": id };
+    console.log("CheckAvailable, result: " + result);
+    return result;
 
 };
 

@@ -40,7 +40,6 @@
             if (response.ok) alert("Data inserted successfully");
         };
 
-
         const checkAvailable = async() => {
 
             const movie_title = document.getElementById("title").value;
@@ -52,7 +51,7 @@
                 body: JSON.stringify(content)
             });
 
-            console.log(response.json()); //
+            console.log("index.html response: " + await response.json());
             if (response.ok) alert("Data read successfully");
         };
 
