@@ -2,6 +2,8 @@
 CREATE TABLE users (
   id integer PRIMARY KEY,
   username varchar(25) UNIQUE NOT NULL,
+  email text NOT NULL,
+  password text NOT NULL,
   created_on timestamp NOT NULL
              DEFAULT CURRENT_TIMESTAMP,
   last_login timestamp NOT NULL

@@ -3,3 +3,7 @@ body {
     text-align: center;
     width: 600px;
 }
+
+#loginBox {
+    text-align: right;
+}

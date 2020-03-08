@@ -1,8 +1,8 @@
 INSERT INTO users
-(id, username)
+(id, username, email, password)
 VALUES
-(1, 'byan'),
-(2, 'otherguy');
+(1, 'byan', 'test@me.com', 'pass'),
+(2, 'otherguy', 'test1@me.com', 'pass2');
 
 INSERT INTO movies (id, title, description, created_by) VALUES
 (1, 'Tony Story 4', 'When a new toy called "Forky" joins Woody and the gang, a road trip alongside old and new friends reveals how big the world can be for a toy.', 1),
