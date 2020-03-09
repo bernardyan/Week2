@@ -15,11 +15,11 @@
   "dependencies": {
     "bcrypt": "^4.0.1",
     "chai": "^4.2.0",
-    "connect-session-knex": "^1.5.0",
+    "connect-session-knex": "git@github.com:machineghost/connect-session-knex.git",
     "esm": "^3.2.25",
     "express": "^4.17.1",
     "express-session": "^1.17.0",
-    "knex": "^0.20.11",
+    "knex": "0.20.10",
     "mocha": "^6.2.2",
     "nodemailer": "^6.4.4",
     "pg": "^7.18.1"

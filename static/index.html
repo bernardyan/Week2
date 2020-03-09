@@ -69,40 +69,57 @@
                 body: JSON.stringify(content)
             });
         };
-        //
-        // const signup = async() => {
-        //
-        //     const username = document.getElementById("username").value;
-        //     const email = document.getElementById("email").value;
-        //     const password = document.getElementById("password").value;
-        //
-        //     const content = {"username": username, "email": email, "password": password};
-        //     console.log("sign up" + JSON.stringify(content));
-        //
-        //     const response = await fetch('/api/user', {
-        //         headers: { 'Content-Type': 'application/json' },
-        //         method: 'POST',
-        //         body: JSON.stringify(content)
-        //     });
-        //
-        //     console.log(response);
-        // };
-        //
-        //
-        // const getCurrent = async() => {
-        //
-        //     //
-        //     // const content = {"username": username, "email": email, "password": password};
-        //     // console.log("sign up" + JSON.stringify(content));
-        //
-        //     const response = await fetch('/api/currentUser', {
-        //         headers: { 'Content-Type': 'application/json' },
-        //         method: 'POST',
-        //         body: null
-        //     });
-        //
-        //     console.log(response);
-        // };
+
+        const signup = async() => {
+
+            const username = document.getElementById("username").value;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            const content = {"username": username, "email": email, "password": password};
+            console.log("sign up" + JSON.stringify(content));
+
+            const response = await fetch('/api/user', {
+                headers: { 'Content-Type': 'application/json' },
+                method: 'POST',
+                body: JSON.stringify(content)
+            });
+
+            console.log(response);
+        };
+
+        const login = async() => {
+
+            const username = document.getElementById("login_username").value;
+            const email = document.getElementById("login_email").value;
+            const password = document.getElementById("login_password").value;
+
+            const content = {"username": username, "email": email, "password": password};
+            console.log("login" + JSON.stringify(content));
+
+            const response = await fetch('/api/login', {
+                headers: { 'Content-Type': 'application/json' },
+                method: 'POST',
+                body: JSON.stringify(content)
+            });
+
+            console.log(response);
+        };
+
+
+        const getCurrent = async() => {
+
+            //
+            // const content = {"username": username, "email": email, "password": password};
+            // console.log("sign up" + JSON.stringify(content));
+
+            const response = await fetch('/api/currentUser', {
+                headers: { 'Content-Type': 'application/json' },
+                method: 'GET'
+            });
+
+            console.log(response);
+        };
 
     </script>
 
@@ -112,6 +129,19 @@
 </head>
 
 <body>
+
+<h2>Login</h2>
+<form>
+    <label for="login_username">Username:</label>
+    <input type="text" id="login_username" name="login_username"><br><br>
+    <label for="login_email">Email:</label>
+    <input type="text" id="login_email" name="login_email"><br><br>
+    <label for="login_password">Password:</label>
+    <input type="text" id="login_password" name="login_password"><br><br>
+</form>
+<button onclick="login()">Login</button>
+
+
 
 <h2>Sign up</h2>
 <form>
@@ -124,6 +154,7 @@
 </form>
 <button onclick="signup()">Sign up</button>
 
+<br>
 
 <button onclick="getCurrent()">current</button>
 

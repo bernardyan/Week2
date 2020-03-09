@@ -6,11 +6,12 @@ export const getUserByUsername = async username =>
 
 
 export const createUser = async ({ username, email, password }) => {
+
     const [user] = await knex('users').insert({
-        username,
-        email,
+        username: username,
+        email: email,
         password: await hashPassword(password)
-    }).returning(['id', 'email', 'username', 'password']);
+    }).returning(['email', 'username', 'password']);
 
     console.log(user);
     return user;
