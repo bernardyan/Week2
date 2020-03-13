@@ -85,6 +85,8 @@
                 body: JSON.stringify(content)
             });
 
+            window.location.reload();
+
             console.log(response);
         };
 
@@ -104,22 +106,71 @@
             });
 
             console.log(response);
+
+            window.location.reload();
+
         };
 
 
-        const getCurrent = async() => {
+        const showSignup = () => {
 
-            //
-            // const content = {"username": username, "email": email, "password": password};
-            // console.log("sign up" + JSON.stringify(content));
+            const loginBox = document.getElementById('loginBox');
+            loginBox.hidden = true;
 
+            const signupBox = document.getElementById('signupBox');
+            signupBox.hidden = false;
+
+        };
+
+        const showLogin = () => {
+
+            const signupBox = document.getElementById('signupBox');
+            signupBox.hidden = true;
+
+            const loginBox = document.getElementById('loginBox');
+            loginBox.hidden = false;
+
+        };
+
+
+        window.onload = async () => {
+
+            // To start, assume init state
+            const loginBox = document.getElementById('loginBox');
+            loginBox.hidden = true;
+
+            const signupBox = document.getElementById('signupBox');
+            signupBox.hidden = true;
+
+            const login_user = document.getElementById('login_user');
+            login_user.hidden = true;
+
+            const signup_login = document.getElementById('signup_login');
+            signup_login.hidden = true;
+
+            // do we have user session?
             const response = await fetch('/api/currentUser', {
                 headers: { 'Content-Type': 'application/json' },
                 method: 'GET'
             });
 
-            console.log(response);
-        };
+            const json = await response.json();
+            const { username, errors } = json;
+
+            console.log(username);
+
+            // Yes, show username
+            if (username) {
+                console.log('found user session');
+                login_user.textContent = `Welcome, ${username}`;
+                login_user.hidden = false;
+
+            } else {
+                // No, give user to signup or login
+                console.log('no user');
+                signup_login.hidden = false;
+            }
+        }
 
     </script>
 
@@ -130,34 +181,45 @@
 
 <body>
 
-<h2>Login</h2>
-<form>
-    <label for="login_username">Username:</label>
-    <input type="text" id="login_username" name="login_username"><br><br>
-    <label for="login_email">Email:</label>
-    <input type="text" id="login_email" name="login_email"><br><br>
-    <label for="login_password">Password:</label>
-    <input type="text" id="login_password" name="login_password"><br><br>
-</form>
-<button onclick="login()">Login</button>
+<div id="user_status">
+
+    <h3 id="login_user"></h3>
+
+    <h3 id="signup_login">
+        Please <a onclick="showSignup()">sign up</a> or <a onclick="showLogin()">login</a>
+    </h3>
+
+</div>
+
+<div id="loginBox">
+
+    <h2>Login</h2>
+    <form>
+        <label for="login_username">Username:</label>
+        <input type="text" id="login_username" name="login_username"><br><br>
+        <label for="login_email">Email:</label>
+        <input type="text" id="login_email" name="login_email"><br><br>
+        <label for="login_password">Password:</label>
+        <input type="password" id="login_password" name="login_password"><br><br>
+    </form>
+    <button onclick="login()">Login</button>
+
+</div>
+
+<div id="signupBox">
+    <h2>Sign up</h2>
+    <form>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username"><br><br>
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email"><br><br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password"><br><br>
+    </form>
+    <button onclick="signup()">Sign up</button>
 
 
-
-<h2>Sign up</h2>
-<form>
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username"><br><br>
-    <label for="email">Email:</label>
-    <input type="text" id="email" name="email"><br><br>
-    <label for="password">Password:</label>
-    <input type="text" id="password" name="password"><br><br>
-</form>
-<button onclick="signup()">Sign up</button>
-
-<br>
-
-<button onclick="getCurrent()">current</button>
-
+</div>
 
 <form>
     <label for="movie_id">Search Title:</label>

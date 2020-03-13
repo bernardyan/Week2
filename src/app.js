@@ -26,22 +26,30 @@ const sessionMiddleware = session({
 app.use(sessionMiddleware);
 const login = async (request, response) => {
     console.log(request.body);
-    console.log(response.body);
     const username = request.body['username'];
     const password = request.body['password'];
 
     const user = await getUserByUsername(username);
+    console.log(user.password);
+
     const matches = await compareHashed(password, user.password);
     request.session.user = matches ? user : null;
 
     console.log(request.session);
-    return request.session.user;
+    response.send(request.session.user);
 
 };
 app.post('/api/login', login);
 
 const current = async (request, response) => {
-    console.log(request.session);
+    // console.log(response);
+    console.log(request.session.user);
+    // return request.session.user;
+    if (request.session.user === undefined) {
+        response.send({});
+    } else {
+        response.send(request.session.user);
+    }
 
 };
 app.get('/api/currentUser', current);
@@ -55,7 +63,7 @@ const create_user = async (request, response) => {
 
 
     console.log(request.session);
-    return request.session.user;
+    response.send(request.session.user);
 
 };
 app.post('/api/user', create_user);
@@ -64,7 +72,7 @@ app.post('/api/user', create_user);
 const deleteMov = (request, response) => {
     const { id } = request.params || {};
     deleteMovie(id);
-    response.json({ success: true }); // Updated per jeremy's comment
+    response.json({ success: true });
 };
 app.get('/api/delete/:id', deleteMov);
 
