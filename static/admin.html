@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Space</title>
+    <link rel="stylesheet" href="index.css">
+    <script src="index.js"></script>
+
+</head>
+<body>
+
+<nav>
+    <a href="index.html">Find</a> |
+    <a href="category.html">Category</a> |
+    <a href="producer.html">Producer</a> |
+    <a href="admin.html">Admin Space</a>
+</nav>
+
+
+<h2>Admin Features</h2>
+
+<h4>Create New Movie -> Platform Record</h4>
+
+<form id="relation_form">
+    <label for="movie_id">Movie ID:</label>
+    <input type="text" id="movie_id_new" name="movie_id"><br><br>
+    <label for="movie_desc">Platform ID:</label>
+    <input type="text" id="platform_id" name="platform_id"><br><br>
+</form>
+<button onclick="insertPlatform()">Add relation</button>
+
+
+<h4>Update Movie Description</h4>
+<form>
+    <label for="movie_id">Movie ID:</label>
+    <input type="text" id="movie_id" name="movie_id"><br><br>
+    <label for="movie_desc">Description:</label>
+    <input type="text" id="movie_desc" name="movie_desc"><br><br>
+</form>
+<button onclick="updateDesc()">Update Description</button>
+
+
+<h4>Delete Movie by ID</h4>
+<input id="delete_input">
+<button id="delete_button" onclick="deleteMov()">Delete</button>
+
+<br>
+<button onclick="count()">How many movie are we tracking?</button>
+
+</body>
+</html>

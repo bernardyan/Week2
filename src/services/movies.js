@@ -2,6 +2,7 @@ import knex from '../database'
 
 export const getMovieCount = async () => (await knex('movies').count())[0].count;
 
+
 export const getMovieById = async id => {
 
     const result = await knex('movies')
@@ -46,7 +47,8 @@ export const checkAvailable = async (title) => {
         .join('platform', 'movies_platforms.platform_id', 'platform.id')
         .where('title', title);
 
-    console.log("CheckAvailable, result: " + result);
+    console.log("CheckAvailable, result: ");
+    console.log(result);
     return result;
 
 };

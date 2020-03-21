@@ -1,9 +1,13 @@
-body {
-    margin: 0 auto;
-    text-align: center;
-    width: 600px;
+button {
+    padding: 2px;
+    font-size: 1.2em;
+    margin: 10px;
 }
 
-/*#loginBox {*/
-/*    text-align: right;*/
-/*}*/
+body {
+    text-align: center;
+}
+
+#footer {
+    margin-top:300px;
+}

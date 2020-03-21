@@ -6,6 +6,7 @@
   "scripts": {
     "migrate": "npx knex migrate:up",
     "migrate-down": "npx knex migrate:down",
+    "seed": "knex seed:run",
     "start": "node -r esm src/index.js",
     "test": "npx mocha -r esm test/test.js",
     "db-test": "npx mocha -r esm test/db-test.js"
@@ -19,6 +20,8 @@
     "esm": "^3.2.25",
     "express": "^4.17.1",
     "express-session": "^1.17.0",
+    "express-graphql": "^0.9.0",
+    "graphql": "^14.6.0",
     "knex": "0.20.10",
     "mocha": "^6.2.2",
     "nodemailer": "^6.4.4",

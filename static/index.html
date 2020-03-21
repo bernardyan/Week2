@@ -2,193 +2,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-
-    <script>
-
-
-        const count = async () => {
-            const count = await fetch('/api/count');
-            const result = await response.json(count);
-            alert(`Our awesome website is currently tracking ` + result['count'] + ` movies`);
-        };
-
-
-        const deleteMov = async () => {
-            const id = document.getElementById("delete_input").value;
-            const response = await fetch('/api/delete/' + id);
-            const result = await response.json(); // result contains more useful metadata
-            alert(result);
-        };
-
-
-        const insertPlatform = async() => {
-
-            const movie_id = document.getElementById("movie_id_new").value;
-            const platform_id = document.getElementById("platform_id").value;
-
-            const relation = {"movie_id": movie_id, "platform_id": platform_id};
-            console.log("insert pltform" + JSON.stringify(relation));
-
-            const response = await fetch('/api/addRelation', {
-                headers: { 'Content-Type': 'application/json' },
-                method: 'POST',
-                body: JSON.stringify(relation)
-            });
-
-            console.log(response.json()); // response is ok, but how do I read json data?
-
-            if (response.ok) alert("Data inserted successfully");
-        };
-
-        const checkAvailable = async() => {
-
-            const movie_title = document.getElementById("title").value;
-            const content = {"title": movie_title};
-
-            const response = await fetch('/api/movieAvailable', {
-                headers: { 'Content-Type': 'application/json' },
-                method: 'POST',
-                body: JSON.stringify(content)
-            });
-
-            console.log("index.html response: " + await response.json());
-            if (response.ok) alert("Data read successfully");
-        };
-
-        const updateDesc = async() => {
-
-            const movie_id = document.getElementById("movie_id").value;
-            const desc = document.getElementById("movie_desc").value;
-
-            const content = {"movie_id": movie_id, "desc": desc};
-            console.log("update description" + JSON.stringify(content));
-
-            const response = await fetch('/api/updateDesc', {
-                headers: { 'Content-Type': 'application/json' },
-                method: 'POST',
-                body: JSON.stringify(content)
-            });
-        };
-
-        const signup = async() => {
-
-            const username = document.getElementById("username").value;
-            const email = document.getElementById("email").value;
-            const password = document.getElementById("password").value;
-
-            const content = {"username": username, "email": email, "password": password};
-            console.log("sign up" + JSON.stringify(content));
-
-            const response = await fetch('/api/user', {
-                headers: { 'Content-Type': 'application/json' },
-                method: 'POST',
-                body: JSON.stringify(content)
-            });
-
-            window.location.reload();
-
-            console.log(response);
-        };
-
-        const login = async() => {
-
-            const username = document.getElementById("login_username").value;
-            const email = document.getElementById("login_email").value;
-            const password = document.getElementById("login_password").value;
-
-            const content = {"username": username, "email": email, "password": password};
-            console.log("login" + JSON.stringify(content));
-
-            const response = await fetch('/api/login', {
-                headers: { 'Content-Type': 'application/json' },
-                method: 'POST',
-                body: JSON.stringify(content)
-            });
-
-            console.log(response);
-
-            window.location.reload();
-
-        };
-
-
-        const showSignup = () => {
-
-            const loginBox = document.getElementById('loginBox');
-            loginBox.hidden = true;
-
-            const signupBox = document.getElementById('signupBox');
-            signupBox.hidden = false;
-
-        };
-
-        const showLogin = () => {
-
-            const signupBox = document.getElementById('signupBox');
-            signupBox.hidden = true;
-
-            const loginBox = document.getElementById('loginBox');
-            loginBox.hidden = false;
-
-        };
-
-
-        window.onload = async () => {
-
-            // To start, assume init state
-            const loginBox = document.getElementById('loginBox');
-            loginBox.hidden = true;
-
-            const signupBox = document.getElementById('signupBox');
-            signupBox.hidden = true;
-
-            const login_user = document.getElementById('login_user');
-            login_user.hidden = true;
-
-            const signup_login = document.getElementById('signup_login');
-            signup_login.hidden = true;
-
-            // do we have user session?
-            const response = await fetch('/api/currentUser', {
-                headers: { 'Content-Type': 'application/json' },
-                method: 'GET'
-            });
-
-            const json = await response.json();
-            const { username, errors } = json;
-
-            console.log(username);
-
-            // Yes, show username
-            if (username) {
-                console.log('found user session');
-                login_user.textContent = `Welcome, ${username}`;
-                login_user.hidden = false;
-
-            } else {
-                // No, give user to signup or login
-                console.log('no user');
-                signup_login.hidden = false;
-            }
-        }
-
-    </script>
-
-    <link rel="stylesheet" type="text/css" href="/static/index.css">
-
-    <title>Where's my movie</title>
+    <script src="index.js"></script>
+    <link rel="stylesheet" href="index.css">
+    <title>Where 2 Watch</title>
 </head>
 
 <body>
 
+<a href="index.html"><img src="logo.png" alt="Site logo" height="200" width="400"></a>
+
+
+<nav>
+    <a href="index.html">Find</a> |
+    <a href="category.html">Category</a> |
+    <a href="producer.html">Producer</a> |
+    <a href="admin.html">Admin Space</a>
+</nav>
+
 <div id="user_status">
-
     <h3 id="login_user"></h3>
-
     <h3 id="signup_login">
         Please <a onclick="showSignup()">sign up</a> or <a onclick="showLogin()">login</a>
     </h3>
-
 </div>
 
 <div id="loginBox">
@@ -222,40 +57,15 @@
 </div>
 
 <form>
-    <label for="movie_id">Search Title:</label>
+    <label for="title">Search Title:</label>
     <input type="text" id="title" name="title"><br><br>
 </form>
 <button onclick="checkAvailable()">Search</button>
 
-<h1>Admin Features</h1>
-
-<h2>Create New Movie -> Platform Record</h2>
-
-<form id="relation_form">
-    <label for="movie_id">Movie ID:</label>
-    <input type="text" id="movie_id_new" name="movie_id"><br><br>
-    <label for="movie_desc">Platform ID:</label>
-    <input type="text" id="platform_id" name="platform_id"><br><br>
-</form>
-<button onclick="insertPlatform()">Add relation</button>
+<div id="detailView">
 
 
-<h2>Update Movie Description</h2>
-<form>
-    <label for="movie_id">Movie ID:</label>
-    <input type="text" id="movie_id" name="movie_id"><br><br>
-    <label for="movie_desc">Description:</label>
-    <input type="text" id="movie_desc" name="movie_desc"><br><br>
-</form>
-<button onclick="updateDesc()">Update Description</button>
-
-
-<h2>Delete Movie by ID</h2>
-<input id="delete_input">
-<button id="delete_button" onclick="deleteMov()">Delete</button>
-
-<br>
-<button onclick="count()">How many movie are we tracking?</button>
+</div>
 
 </body>
 </html>
