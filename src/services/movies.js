@@ -69,10 +69,10 @@ export const getMoviesByCategory = async (category) => {
     console.log("getMoviesByCategory, received content: " + category);
 
     const result = await knex('movies')
-        .select('title')
-        .join('producers_movies', 'movies.id', 'movies_platforms.movie_id')
-        .join('platform', 'movies_platforms.platform_id', 'platform.id')
-        .where('producer.name', company);
+        .select('movies.title')
+        .join('categories_movies', 'movies.id', 'categories_movies.movie_id')
+        .join('category', 'categories_movies.category_id', 'category.id')
+        .where('name', category);
 
     console.log("getMoviesByCategory, result: ");
     console.log(result);
@@ -80,18 +80,6 @@ export const getMoviesByCategory = async (category) => {
 
 
 };
-
-
-//
-// export const getMovieById = async id => {
-//
-//     const result = await knex('movies')
-//         .where({ id })
-//         .select('title');
-//     return (result[0] || {})["title"];
-//
-// };
-
 
 // -----MUTATION-----
 
@@ -136,23 +124,23 @@ export const addRelation = async (relation) => {
 };
 
 
-// TODO: Add a new category to a movie
-// export const addRelation = async (relation) => {
-//     const platform_id = relation['platform_id'];
-//     const movie_id = relation['movie_id'];
-//
-//     console.log(platform_id);
-//     console.log(movie_id);
-//     console.log("add relation");
-//
-//     const [new_id] = await knex('movies_platforms')
-//         .insert({ movie_id: movie_id, platform_id: platform_id})
-//         .returning('movie_id');
-//
-//     console.log(new_id);
-//     return {"id": new_id};
-//
-// };
+// Add a new category to a movie
+export const addCategory = async (content) => {
+    const category_id = content['category_id'];
+    const movie_id = content['movie_id'];
+
+    console.log(category_id);
+    console.log(movie_id);
+    console.log("add category");
+
+    const [new_id] = await knex('categories_movies')
+        .insert({ movie_id: movie_id, category_id: category_id})
+        .returning('movie_id');
+
+    console.log(new_id);
+    return {"id": new_id};
+
+};
 
 
 

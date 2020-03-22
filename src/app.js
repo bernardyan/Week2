@@ -10,13 +10,11 @@ import schema from './graphql/schema'
 // import { getMovieCount, deleteMovie, addRelation, updateDesc, checkAvailable }
 //     from './services/movies';
 
-// import { getUserByUsername, createUser }
-//     from './services/users';
+import { getUserByUsername, createUser }
+    from './services/users';
 
 
-
-
-// import { compareHashed } from './auth'
+import { compareHashed } from './auth'
 //
 //
 // const app = express();
@@ -30,7 +28,7 @@ import schema from './graphql/schema'
 //     secret: 'scretString',
 //     cookie: { maxAge: ONE_MONTH }
 // });
-//
+// //
 // app.use(sessionMiddleware);
 // const login = async (request, response) => {
 //     console.log(request.body);
@@ -48,7 +46,7 @@ import schema from './graphql/schema'
 //
 // };
 // app.post('/api/login', login);
-//
+// //
 // const current = async (request, response) => {
 //     // console.log(response);
 //     console.log(request.session.user);
@@ -61,7 +59,7 @@ import schema from './graphql/schema'
 //
 // };
 // app.get('/api/currentUser', current);
-//
+// //
 // const create_user = async (request, response) => {
 //     console.log(request.body);
 //     const username = request.body['username'];
@@ -75,6 +73,11 @@ import schema from './graphql/schema'
 //
 // };
 // app.post('/api/user', create_user);
+
+
+
+
+
 //
 //
 // const deleteMov = (request, response) => {

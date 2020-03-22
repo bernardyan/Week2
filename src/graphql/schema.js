@@ -34,11 +34,9 @@ export default buildSchema(`
   type Query {
     getMoviePlatform(name: String!): [Platform]
     getAllProducers: [Producer]
-    Producers: [Producer]
     getMoviesByProducer(name: String!): [Movie]
     getAllCategories: [Category]
     getMoviesByCategory(name: String!): [Movie]
-   
   }
   
   

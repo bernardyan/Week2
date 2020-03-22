@@ -119,6 +119,15 @@ describe('Test service functions', () => {
         });
 
     });
+
+    describe('Check all movies from a category', () => {
+        it('gives a list of movies when given category', async () => {
+            const result = await getMoviesByCategory("Sci-Fi");
+            const list = [ { title: 'Terminator Genisys' } ];
+            expect(result).to.eql(list);
+        });
+    });
+
     // -----MUTATION-----
 
 

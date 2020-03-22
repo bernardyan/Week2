@@ -32,6 +32,7 @@ const checkAvailable = async() => {
 
 
 
+
 // const count = async () => {
 //     const count = await fetch('/api/count');
 //     const result = await response.json(count);
@@ -149,6 +150,8 @@ const showLogin = () => {
 
 window.onload = async () => {
 
+
+
     // To start, assume init state
     const loginBox = document.getElementById('loginBox');
     loginBox.hidden = true;
@@ -184,4 +187,5 @@ window.onload = async () => {
         console.log('no user');
         signup_login.hidden = false;
     }
-}
+
+};
