@@ -1,50 +1,6 @@
-const count = async () => {
-    const count = await fetch('/api/count');
-    const result = await response.json(count);
-    alert(`Our awesome website is currently tracking ` + result['count'] + ` movies`);
-};
-
-
-const deleteMov = async () => {
-    const id = document.getElementById("delete_input").value;
-    const response = await fetch('/api/delete/' + id);
-    const result = await response.json(); // result contains more useful metadata
-    alert(result);
-};
-
-
-const insertPlatform = async() => {
-
-    const movie_id = document.getElementById("movie_id_new").value;
-    const platform_id = document.getElementById("platform_id").value;
-
-    const relation = {"movie_id": movie_id, "platform_id": platform_id};
-    console.log("insert pltform" + JSON.stringify(relation));
-
-    const response = await fetch('/api/addRelation', {
-        headers: { 'Content-Type': 'application/json' },
-        method: 'POST',
-        body: JSON.stringify(relation)
-    });
-
-    console.log(response.json()); // response is ok, but how do I read json data?
-
-    if (response.ok) alert("Data inserted successfully");
-};
-
 const checkAvailable = async() => {
 
     const movie_title = document.getElementById("title").value;
-    // const content = {"title": movie_title};
-    //
-    // const response = await fetch('/api/movieAvailable', {
-    //     headers: { 'Content-Type': 'application/json' },
-    //     method: 'POST',
-    //     body: JSON.stringify(content)
-    // });
-    //
-    // console.log("index.html response: " + await response.json());
-    // if (response.ok) alert("Data read successfully");
 
     const response = await fetch('http://localhost:8000/api/graphql', {
         headers: { 'Content-Type': 'application/json' },
@@ -55,37 +11,60 @@ const checkAvailable = async() => {
     });
 
     const json = await response.json();
-
-
-    console.log(json);
+    // console.log(json);
     const { data, errors } = json;
-    const type = data['getMoviePlatform'];
-    //
-    console.log(type);
-    // alert(`${card_name} is a ${type}!`);
+    const platforms = data['getMoviePlatform'];
+    const detailView = document.getElementById("detailView");
+
+    var content = "";
+    // We do have streaming service available
+    if (platforms.length > 0) {
+        platforms.forEach((item) => {
+            const service = item['service'];
+            content += `<p>${service}</p>`;
+        });
+    } else {
+        content += `<p>Not available in our DB</p>`;
+    }
+    detailView.innerHTML = content;
 
 };
 
 
-const checkType = async() => {
 
-    const card_name = document.getElementById("card_name").value;
-
-    const response = await fetch('/api/graphql', {
-        headers: { 'Content-Type': 'application/json' },
-        method: 'POST',
-        body:JSON.stringify({
-            query: `query { getCardType(name: "${card_name}") { name id } }`,
-        }),
-    });
-
-    const json = await response.json();
-    const { data, errors } = json;
-    const type = data['getCardType']['name'];
-
-    console.log(type);
-    alert(`${card_name} is a ${type}!`);
-};
+// const count = async () => {
+//     const count = await fetch('/api/count');
+//     const result = await response.json(count);
+//     alert(`Our awesome website is currently tracking ` + result['count'] + ` movies`);
+// };
+//
+//
+// const deleteMov = async () => {
+//     const id = document.getElementById("delete_input").value;
+//     const response = await fetch('/api/delete/' + id);
+//     const result = await response.json(); // result contains more useful metadata
+//     alert(result);
+// };
+//
+//
+// const insertPlatform = async() => {
+//
+//     const movie_id = document.getElementById("movie_id_new").value;
+//     const platform_id = document.getElementById("platform_id").value;
+//
+//     const relation = {"movie_id": movie_id, "platform_id": platform_id};
+//     console.log("insert pltform" + JSON.stringify(relation));
+//
+//     const response = await fetch('/api/addRelation', {
+//         headers: { 'Content-Type': 'application/json' },
+//         method: 'POST',
+//         body: JSON.stringify(relation)
+//     });
+//
+//     console.log(response.json()); // response is ok, but how do I read json data?
+//
+//     if (response.ok) alert("Data inserted successfully");
+// };
 
 
 

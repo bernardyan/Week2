@@ -7,6 +7,16 @@ export default buildSchema(`
     id: ID!
     service: String!
   }
+  
+  type Producer {
+    id: ID!
+    name: String!
+  }
+  
+  type Category {
+    id: ID!
+    name: String!
+  }
 
   type Movie {
     id: ID!
@@ -21,13 +31,26 @@ export default buildSchema(`
   }
 
 
-
   type Query {
     getMoviePlatform(name: String!): [Platform]
+    getAllProducers: [Producer]
+    Producers: [Producer]
+    getMoviesByProducer(name: String!): [Movie]
+    getAllCategories: [Category]
+    getMoviesByCategory(name: String!): [Movie]
+   
   }
+  
+  
 
  
 `);
+
+
+// getAllProducers(): [Producer]
+// getMoviesByProducer(name: String!): [Movie]
+// getAllCategories(): [Category]
+// getMoviesByCategory(name: String!): [Movie]
 
 // input CardUpdate {
 //     id: ID!
