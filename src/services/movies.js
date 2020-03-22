@@ -119,9 +119,6 @@ export const addRelation = async (relation) => {
         .insert({ movie_id: movie_id, platform_id: platform_id})
         .returning('movie_id');
 
-    console.log(new_id);
-    // return {"id": new_id};
-
     return {wasSuccessful: true};
 };
 
@@ -138,9 +135,6 @@ export const addCategory = async (content) => {
     const [new_id] = await knex('categories_movies')
         .insert({ movie_id: movie_id, category_id: category_id})
         .returning('movie_id');
-
-    console.log(new_id);
-    // return {"id": new_id};
 
     return {wasSuccessful: true};
 

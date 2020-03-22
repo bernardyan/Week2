@@ -78,59 +78,16 @@ import { compareHashed } from './auth'
 
 
 
-//
-//
-// const deleteMov = (request, response) => {
-//     const { id } = request.params || {};
-//     deleteMovie(id);
-//     response.json({ success: true });
-// };
-// app.get('/api/delete/:id', deleteMov);
-//
-// const movieCount = async (request, response) => {
-//
-//     const count = await getMovieCount();
-//     response.json({"count":count});
-// };
-// app.get('/api/count/', movieCount);
-//
-// app.use(express.json());
-// const addPlatform = async (request, response) => {
-//     console.log(request.body);
-//
-//     const relation = request.body;
-//     relation.created_on = new Date();
-//     const record = await addRelation(relation);
-//     console.log(record);
-//     response.json(record);
-// };
-// app.post('/api/addRelation', addPlatform);
-//
-// app.use(express.json());
-// const update = async (request, response) => {
-//     console.log("At app.js" + request.body);
-//
-//     const content = request.body;
-//     content.created_on = new Date();
-//     await updateDesc(content);
-//     response.json({ success: true });
-// };
-// app.post('/api/updateDesc', update);
-//
-// app.use(express.json());
-// const movieAvailable = async (request, response) => {
-//     console.log("movieAvailable, body: " + request.body);
-//
-//     const content = request.body;
-//     const result = await checkAvailable(content['title']);
-//     // console.log(result);
-//     response.json(result); // Result array of object as format [{'title': 'platform'}, {'title': 'platform'}]
-// };
-// app.post('/api/movieAvailable', movieAvailable);
-
-
 const app = express();
 app.use(express.json());
+
+const ONE_MONTH = 7 * 24 * 60 * 60 * 1000;
+const KnexSessionStore = ConnectSessionKnex(session);
+app.use(session({
+    store: new KnexSessionStore({ knex }),
+    secret: 'where2watch',
+    cookie: { maxAge: ONE_MONTH }
+}));
 
 app.use('/api/graphql', graphqlHTTP({
     schema,

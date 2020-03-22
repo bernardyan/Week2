@@ -30,6 +30,11 @@ export default buildSchema(`
     wasSuccessful: Boolean!
   }
   
+  type User {
+    id: ID!
+    username: String!
+  }
+  
   input MovieUpdate {
     id: ID!
     title: String
@@ -45,8 +50,20 @@ export default buildSchema(`
     category: String
     movie: String
   }
+  
+  input LoginInput {
+    username: String!
+    password: String!
+  }
+  
+  input UserInput {
+    email: String!
+    password: String!
+    username: String!
+  }
 
   type Query {
+    currentUser: User
     getMoviePlatform(name: String!): [Platform]
     getAllProducers: [Producer]
     getMoviesByProducer(name: String!): [Movie]
@@ -55,6 +72,8 @@ export default buildSchema(`
   }
   
   type Mutation {
+    login(loginInput: LoginInput!): User
+    signup(user: UserInput!): User
     deleteMovie (id: ID): SuccessResponse
     updateMovie (update: MovieUpdate!): SuccessResponse
     addRelation (update: AddRelation!): SuccessResponse

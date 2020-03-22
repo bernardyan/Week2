@@ -37,14 +37,32 @@ const signup = async() => {
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
 
-    const content = {"username": username, "email": email, "password": password};
-    console.log("sign up" + JSON.stringify(content));
+    // const content = {"username": username, "email": email, "password": password};
+    // console.log("sign up" + JSON.stringify(content));
 
-    const response = await fetch('/api/user', {
+    // const response = await fetch('/api/user', {
+    //     headers: { 'Content-Type': 'application/json' },
+    //     method: 'POST',
+    //     body: JSON.stringify(content)
+    // });
+
+
+    console.log("sign up index.js");
+
+
+    const response = await fetch('http://localhost:8000/api/graphql', {
         headers: { 'Content-Type': 'application/json' },
         method: 'POST',
-        body: JSON.stringify(content)
+        body:JSON.stringify({
+            query: `mutation { signup (user: {username: "${username}", email: "${email}", password: "${password}"}) { username } }`,
+        }),
     });
+
+    const json = await response.json();
+
+    console.log(json);
+
+
 
     window.location.reload();
 
@@ -110,23 +128,24 @@ window.onload = async () => {
     signup_login.hidden = true;
 
     // do we have user session?
-    const response = await fetch('/api/currentUser', {
+    const response = await fetch('http://localhost:8000/api/graphql', {
         headers: { 'Content-Type': 'application/json' },
-        method: 'GET'
+        method: 'POST',
+        body:JSON.stringify({
+            query: `query { currentUser { username } }`,
+        }),
     });
 
     const json = await response.json();
-    const { username, errors } = json;
+    const { data, errors } = json;
 
-    console.log(username);
-
-    // Yes, show username
-    if (username) {
+    try {
+        // Yes, show username
+        const currentUser = data['currentUser']['username'];
         console.log('found user session');
-        login_user.textContent = `Welcome, ${username}`;
+        login_user.textContent = `Welcome, ${currentUser}`;
         login_user.hidden = false;
-
-    } else {
+    } catch {
         // No, give user to signup or login
         console.log('no user');
         signup_login.hidden = false;

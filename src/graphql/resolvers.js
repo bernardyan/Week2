@@ -1,5 +1,20 @@
-import { checkAvailable, getAllProducers, getMoviesByProducer, getAllCategories, getMoviesByCategory, deleteMovie, updateDesc, addRelation } from '../services/movies.js';
-import {addCategory} from "../services/movies";
+import {
+    checkAvailable,
+    getAllProducers,
+    getMoviesByProducer,
+    getAllCategories,
+    getMoviesByCategory,
+    deleteMovie,
+    updateDesc,
+    addRelation,
+    addCategory
+} from '../services/movies.js';
+
+import {
+    getUserByUsername,
+    createUser
+} from '../services/users'
+
 
 const resolvers = {
     getMoviePlatform: async (content) => {
@@ -47,6 +62,34 @@ const resolvers = {
         const mov_id = content['update']['movie'];
         return addCategory({category_id: category_id, movie_id: mov_id});
     },
+
+    currentUser: (args, { session }) => {
+
+        console.log("res current user");
+        console.log(session)
+        console.log(session.user);
+        return session.user;
+    },
+
+    signup: async (args, { session }) => {
+
+        console.log("res signup user");
+
+
+
+        const username = args['user']['username'];
+        const email = args['user']['email'];
+        const password = args['user']['password'];
+
+        const createdUser = await createUser({username: username, email: email, password: password});
+        session.user = createdUser;
+
+
+        console.log(createdUser);
+
+        return createdUser;
+
+    }
 
 };
 
