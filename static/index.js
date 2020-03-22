@@ -31,60 +31,6 @@ const checkAvailable = async() => {
 };
 
 
-
-
-// const count = async () => {
-//     const count = await fetch('/api/count');
-//     const result = await response.json(count);
-//     alert(`Our awesome website is currently tracking ` + result['count'] + ` movies`);
-// };
-//
-//
-// const deleteMov = async () => {
-//     const id = document.getElementById("delete_input").value;
-//     const response = await fetch('/api/delete/' + id);
-//     const result = await response.json(); // result contains more useful metadata
-//     alert(result);
-// };
-//
-//
-// const insertPlatform = async() => {
-//
-//     const movie_id = document.getElementById("movie_id_new").value;
-//     const platform_id = document.getElementById("platform_id").value;
-//
-//     const relation = {"movie_id": movie_id, "platform_id": platform_id};
-//     console.log("insert pltform" + JSON.stringify(relation));
-//
-//     const response = await fetch('/api/addRelation', {
-//         headers: { 'Content-Type': 'application/json' },
-//         method: 'POST',
-//         body: JSON.stringify(relation)
-//     });
-//
-//     console.log(response.json()); // response is ok, but how do I read json data?
-//
-//     if (response.ok) alert("Data inserted successfully");
-// };
-
-
-
-
-const updateDesc = async() => {
-
-    const movie_id = document.getElementById("movie_id").value;
-    const desc = document.getElementById("movie_desc").value;
-
-    const content = {"movie_id": movie_id, "desc": desc};
-    console.log("update description" + JSON.stringify(content));
-
-    const response = await fetch('/api/updateDesc', {
-        headers: { 'Content-Type': 'application/json' },
-        method: 'POST',
-        body: JSON.stringify(content)
-    });
-};
-
 const signup = async() => {
 
     const username = document.getElementById("username").value;
@@ -149,8 +95,6 @@ const showLogin = () => {
 
 
 window.onload = async () => {
-
-
 
     // To start, assume init state
     const loginBox = document.getElementById('loginBox');

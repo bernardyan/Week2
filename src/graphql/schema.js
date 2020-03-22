@@ -29,7 +29,22 @@ export default buildSchema(`
   type SuccessResponse {
     wasSuccessful: Boolean!
   }
-
+  
+  input MovieUpdate {
+    id: ID!
+    title: String
+    description: String
+  }
+  
+  input AddRelation {
+    platform: String!
+    movie: String!
+  }
+  
+  input AddCategory {
+    category: String
+    movie: String
+  }
 
   type Query {
     getMoviePlatform(name: String!): [Platform]
@@ -39,8 +54,12 @@ export default buildSchema(`
     getMoviesByCategory(name: String!): [Movie]
   }
   
-  
-
+  type Mutation {
+    deleteMovie (id: ID): SuccessResponse
+    updateMovie (update: MovieUpdate!): SuccessResponse
+    addRelation (update: AddRelation!): SuccessResponse
+    addCategory (update: AddCategory!): SuccessResponse 
+  }
  
 `);
 

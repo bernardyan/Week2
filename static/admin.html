@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Admin Space</title>
     <link rel="stylesheet" href="index.css">
-    <script src="index.js"></script>
+    <script src="admin.js"></script>
 
 </head>
 <body>
@@ -16,6 +16,9 @@
     <a href="admin.html">Admin Space</a>
 </nav>
 
+<div id="admin_action_status">
+
+</div>
 
 <h2>Admin Features</h2>
 
@@ -28,6 +31,16 @@
     <input type="text" id="platform_id" name="platform_id"><br><br>
 </form>
 <button onclick="insertPlatform()">Add relation</button>
+
+<h4>Create New Movie -> Category Record</h4>
+
+<form id="category_form">
+    <label for="movie_id_category">Movie ID:</label>
+    <input type="text" id="movie_id_category" name="movie_id_category"><br><br>
+    <label for="category_id">Category ID:</label>
+    <input type="text" id="category_id" name="category_id"><br><br>
+</form>
+<button onclick="insertCategory()">Add Category</button>
 
 
 <h4>Update Movie Description</h4>

@@ -89,6 +89,7 @@ export const deleteMovie = async id => {
     await knex('movies_platforms')
         .del()
         .where({ movie_id: id });
+    return {wasSuccessful: true};
 };
 
 
@@ -100,7 +101,7 @@ export const updateDesc = async (content) => {
     await knex('movies')
         .update({ description:desc})
         .where({id:movie_id});
-    return  { "success": true };
+    return {wasSuccessful: true};
 
 };
 
@@ -119,8 +120,9 @@ export const addRelation = async (relation) => {
         .returning('movie_id');
 
     console.log(new_id);
-    return {"id": new_id};
+    // return {"id": new_id};
 
+    return {wasSuccessful: true};
 };
 
 
@@ -138,7 +140,9 @@ export const addCategory = async (content) => {
         .returning('movie_id');
 
     console.log(new_id);
-    return {"id": new_id};
+    // return {"id": new_id};
+
+    return {wasSuccessful: true};
 
 };
 

@@ -1,66 +1,52 @@
 import { checkAvailable, getAllProducers, getMoviesByProducer, getAllCategories, getMoviesByCategory, deleteMovie, updateDesc, addRelation } from '../services/movies.js';
+import {addCategory} from "../services/movies";
 
 const resolvers = {
     getMoviePlatform: async (content) => {
-        console.log("resolvers get mov platform");
-        console.log(content);
-
-        const out = await checkAvailable(content['name']);
-        console.log("resolvers get mov platform return: ");
-        console.log(out);
-        return out;
+        return await checkAvailable(content['name']);
     },
 
     getAllProducers: async (content) => {
-        console.log("resolvers getAllProducers");
-        console.log(content);
-
-        const out = await getAllProducers();
-        console.log("resolvers getAllProducers return: ");
-        console.log(out);
-        return out;
+        return await getAllProducers();
     },
 
     getMoviesByProducer: async (content) => {
-
-        console.log("resolvers getMoviesByProducer");
-        console.log(content);
-
-        const out = await getMoviesByProducer(content['name']);
-        console.log("resolvers getMoviesByProducer return: ");
-        console.log(out);
-        return out;
-
+        return await getMoviesByProducer(content['name']);
     },
 
-
     getAllCategories: async (content) => {
-        console.log("resolvers get all cate");
-        console.log(content);
-
-        const out = await getAllCategories();
-        console.log("resolvers get all cate return: ");
-        console.log(out);
-        return out;
+        return await getAllCategories();
     },
 
     getMoviesByCategory: async (content) => {
+        return await getMoviesByCategory(content['name']);
+    },
 
-        console.log("resolvers getAllMovieByCategory");
-        console.log(content);
+    deleteMovie: async (content) => {
+        // console.log("delete resolver");
+        const id = content['id'];
+        return deleteMovie(id)
+    },
 
-        const out = await getMoviesByCategory(content['name']);
-        console.log("resolvers getAllMovieByCategory return: ");
-        console.log(out);
-        return out;
+    updateMovie: async (content) => {
+        const id = content['update']['id'];
+        const description = content['update']['description'];
+        return updateDesc({desc: description, movie_id: id});
+    },
 
-    }
+    addRelation: async (content) => {
+        // console.log("add relation resovler");
+        // console.log(content);
+        const platform_id = content['update']['platform'];
+        const mov_id = content['update']['movie'];
+        return addRelation({platform_id: platform_id, movie_id: mov_id});
+    },
 
-    // updateCard: async (content) => {
-    //     const id = content['update']['id'];
-    //     const newName = content['update']['name'];
-    //     return updateName(id, newName);
-    // },
+    addCategory: async (content) => {
+        const category_id = content['update']['category'];
+        const mov_id = content['update']['movie'];
+        return addCategory({category_id: category_id, movie_id: mov_id});
+    },
 
 };
 
