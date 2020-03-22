@@ -15,6 +15,8 @@ import {
     createUser
 } from '../services/users'
 
+import { compareHashed } from '../auth.js'
+
 
 const resolvers = {
     getMoviePlatform: async (content) => {
@@ -73,21 +75,38 @@ const resolvers = {
 
     signup: async (args, { session }) => {
 
-        console.log("res signup user");
-
-
-
         const username = args['user']['username'];
         const email = args['user']['email'];
         const password = args['user']['password'];
 
         const createdUser = await createUser({username: username, email: email, password: password});
         session.user = createdUser;
-
-
         console.log(createdUser);
 
         return createdUser;
+
+    },
+
+    login: async (args, { session }) => {
+
+        console.log("login res");
+
+        const username = args['user']['username'];
+        const email = args['user']['email'];
+        const password = args['user']['password'];
+
+        const user = await getUserByUsername(username);
+        // session.user = createdUser;
+        // console.log(createdUser);
+
+
+        const matches = await compareHashed(password, user.password);
+        session.user = matches ? user : null;
+
+        return {id: user.id, username: user.username};
+
+
+
 
     }
 

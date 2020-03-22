@@ -7,14 +7,7 @@ import graphqlHTTP from 'express-graphql'
 import resolvers from './graphql/resolvers'
 import schema from './graphql/schema'
 
-// import { getMovieCount, deleteMovie, addRelation, updateDesc, checkAvailable }
-//     from './services/movies';
 
-import { getUserByUsername, createUser }
-    from './services/users';
-
-
-import { compareHashed } from './auth'
 //
 //
 // const app = express();

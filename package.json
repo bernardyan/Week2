@@ -8,8 +8,7 @@
     "migrate-down": "npx knex migrate:down",
     "seed": "knex seed:run",
     "start": "node -r esm src/index.js",
-    "test": "npx mocha -r esm test/test.js",
-    "db-test": "npx mocha -r esm test/db-test.js"
+    "test": "npx mocha -r esm test/db-test.js"
   },
   "author": "Bonan Yan",
   "license": "ISC",

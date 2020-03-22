@@ -7,9 +7,6 @@ export const getUserByUsername = async username =>
 
 export const createUser = async ({ username, email, password }) => {
 
-    // console.log("users, create user");
-    // console.log({ username, email, password });
-
     const [user] = await knex('users').insert({
         username: username,
         email: email,

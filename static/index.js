@@ -37,19 +37,6 @@ const signup = async() => {
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
 
-    // const content = {"username": username, "email": email, "password": password};
-    // console.log("sign up" + JSON.stringify(content));
-
-    // const response = await fetch('/api/user', {
-    //     headers: { 'Content-Type': 'application/json' },
-    //     method: 'POST',
-    //     body: JSON.stringify(content)
-    // });
-
-
-    console.log("sign up index.js");
-
-
     const response = await fetch('http://localhost:8000/api/graphql', {
         headers: { 'Content-Type': 'application/json' },
         method: 'POST',
@@ -59,56 +46,45 @@ const signup = async() => {
     });
 
     const json = await response.json();
-
     console.log(json);
-
-
-
     window.location.reload();
 
-    console.log(response);
 };
 
 const login = async() => {
 
     const username = document.getElementById("login_username").value;
-    const email = document.getElementById("login_email").value;
     const password = document.getElementById("login_password").value;
-
     const content = {"username": username, "email": email, "password": password};
-    console.log("login" + JSON.stringify(content));
-
-    const response = await fetch('/api/login', {
+    const response = await fetch('http://localhost:8000/api/graphql', {
         headers: { 'Content-Type': 'application/json' },
         method: 'POST',
-        body: JSON.stringify(content)
+        body:JSON.stringify({
+            query: `mutation { login (user: {username: "${username}", password: "${password}"}) { username } }`,
+        }),
     });
 
-    console.log(response);
-
+    const json = await response.json();
+    console.log(json);
     window.location.reload();
 
 };
 
 
 const showSignup = () => {
-
     const loginBox = document.getElementById('loginBox');
     loginBox.hidden = true;
 
     const signupBox = document.getElementById('signupBox');
     signupBox.hidden = false;
-
 };
 
 const showLogin = () => {
-
     const signupBox = document.getElementById('signupBox');
     signupBox.hidden = true;
 
     const loginBox = document.getElementById('loginBox');
     loginBox.hidden = false;
-
 };
 
 

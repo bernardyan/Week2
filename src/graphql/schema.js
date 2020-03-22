@@ -72,7 +72,7 @@ export default buildSchema(`
   }
   
   type Mutation {
-    login(loginInput: LoginInput!): User
+    login(user: LoginInput!): User
     signup(user: UserInput!): User
     deleteMovie (id: ID): SuccessResponse
     updateMovie (update: MovieUpdate!): SuccessResponse

@@ -87,16 +87,12 @@ describe('Test service functions', () => {
     describe('get all producers', () => {
         it('gives a list of producers', async () => {
             const result = await getAllProducers();
-
-            console.log(result);
-
             const list = [
                 { name: 'Disney' },
                 { name: 'Netflix' },
                 { name: 'Sony' },
                 { name: 'Skydance' }
             ];
-
             expect(result).to.eql(list);
         });
 
@@ -114,7 +110,6 @@ describe('Test service functions', () => {
     describe('get all categories', () => {
         it('gives a list of categories', async () => {
             const result = await getAllCategories();
-            console.log(result);
             const list = [ { name: 'Animation' }, { name: 'Sci-Fi' }, { name: 'Documentary' } ];
             expect(result).to.eql(list);
         });
